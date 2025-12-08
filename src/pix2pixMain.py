@@ -5,7 +5,7 @@ from trainer import *
 
 
 def main():
-    sat_load, map_load = get_data()
+    get_data()
 
     pass
 
