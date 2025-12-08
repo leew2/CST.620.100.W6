@@ -5,7 +5,11 @@ from trainer import *
 
 
 def main():
-    get_data()
+    m, s = get_data()
+    g, d = get_models()
+    train(gen=g, dis=d, sats=s, maps=m)
+
+
 
     pass
 
