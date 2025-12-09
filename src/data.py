@@ -2,7 +2,6 @@ import torchvision.transforms as transformer
 import matplotlib.pyplot as plt
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
-from evaluate import *
 import glob
 from PIL import Image
 import torch

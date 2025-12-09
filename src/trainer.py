@@ -2,7 +2,7 @@ import torch.optim as optim
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
-from evaluate import *
+
 
 def train(gen, dis, sats, maps):
     adv_loss = nn.BCELoss()
@@ -58,6 +58,5 @@ def train(gen, dis, sats, maps):
             if counter % 50 ==0:
                 print(f"Data: {counter}({epoch}/{epochs}) -- Gen Loss(total): {g_loss:.2f}({total_g_loss:.2f}) -- Dis Loss(Real - Fake)/2: {d_loss:.2f} (({realL:.2f} - {fakeL:.2f})/2)")
     
-    toPIL = transformer.ToPILImage()
     
     pass

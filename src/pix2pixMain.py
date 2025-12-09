@@ -1,5 +1,4 @@
 from data import *
-from evaluate import *
 from model import *
 from trainer import *
 
