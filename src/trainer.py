@@ -2,6 +2,7 @@ import torch.optim as optim
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
+from evaluate import *
 
 def train(gen, dis, sats, maps):
     adv_loss = nn.BCELoss()
@@ -17,16 +18,19 @@ def train(gen, dis, sats, maps):
     gen = gen.to(device=device)
     dis = dis.to(device=device)
     counter = 0
+    img = None
+
     for epoch in range(epochs):
         
         # each DataLoader yields a batch tensor (batch, C, H, W)
         for sat_img_batch, map_img_batch in zip(sats, maps):
             sat_img = sat_img_batch.to(device=device)
             map_img = map_img_batch.to(device=device)
-
+            
             # print shapes for the first batch to help debug shape mismatches
             if counter == 0 and epoch == 0:
                 print(f"DEBUG: sat_img shape={tuple(sat_img.shape)}, map_img shape={tuple(map_img.shape)}")
+                img = map_img
             fmap = gen(sat_img)
 
             # ensure generator output matches the target map size
@@ -51,7 +55,9 @@ def train(gen, dis, sats, maps):
             total_g_loss.backward()
             opti_g.step()
             counter += 1
-            if counter % 10 ==0:
+            if counter % 50 ==0:
                 print(f"Data: {counter}({epoch}/{epochs}) -- Gen Loss(total): {g_loss:.2f}({total_g_loss:.2f}) -- Dis Loss(Real - Fake)/2: {d_loss:.2f} (({realL:.2f} - {fakeL:.2f})/2)")
-        
+    
+    toPIL = transformer.ToPILImage()
+    
     pass
