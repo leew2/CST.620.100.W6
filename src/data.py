@@ -13,6 +13,7 @@ def get_data():
     # dataset
     s_set , m_set = get_imgs()
 
+
     # loader
     size = 16
     sat_load = DataLoader(dataset=s_set, batch_size=size, shuffle=True)
@@ -21,7 +22,8 @@ def get_data():
 
     toImg = transformer.ToPILImage()
     sat = toImg(s_set[0])
-    sat.show()
+    # Commented out to avoid opening an external image viewer and blocking execution
+    # sat.show()
 
     return map_load, sat_load
 
@@ -41,6 +43,8 @@ def seprate_img(img = Image.open('data/map/1.jpg')):
     sat_img = img.crop((0, 0, w/2, h))
     map_img = img.crop((w/2, 0, w, h))
 
+    
+
     sat_t = _transform(sat_img)
     map_t = _transform(map_img)
 
@@ -53,3 +57,5 @@ def _transform(img):
     ])
     image = transform(img)
     return image
+
+
